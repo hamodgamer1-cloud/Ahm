@@ -1,0 +1,2071 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0f1a">
+<title>خطة أحمد</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0f1a;
+  --bg2: #111827;
+  --card: #1a2235;
+  --card2: #222d42;
+  --border: #2a3650;
+  --text: #e8edf5;
+  --muted: #6b7a99;
+  --green: #00d084;
+  --green-dim: #00d08422;
+  --red: #ff4757;
+  --red-dim: #ff475722;
+  --orange: #ffa502;
+  --orange-dim: #ffa50222;
+  --blue: #2196f3;
+  --blue-dim: #2196f322;
+  --purple: #a855f7;
+  --purple-dim: #a855f722;
+  --gold: #f59e0b;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: 'Cairo', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  direction: rtl;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding-bottom: 80px;
+}
+
+/* ===== HEADER ===== */
+.app-header {
+  background: linear-gradient(135deg, #0a0f1a 0%, #0d1f3c 100%);
+  padding: 20px 20px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.header-logo .icon {
+  width: 38px; height: 38px;
+  background: linear-gradient(135deg, var(--green), #00a86b);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+}
+.header-logo h1 { font-size: 1.1rem; font-weight: 900; color: var(--text); }
+.header-logo p { font-size: 0.7rem; color: var(--muted); }
+.header-stats {
+  display: flex; gap: 8px;
+}
+.hstat {
+  text-align: center;
+  background: var(--card);
+  border-radius: 10px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+}
+.hstat .val { font-size: 0.88rem; font-weight: 800; color: var(--green); display: block; }
+.hstat .lbl { font-size: 0.62rem; color: var(--muted); }
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  display: flex;
+  z-index: 200;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.nav-btn {
+  flex: 1;
+  padding: 10px 4px 8px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  transition: color 0.2s;
+}
+.nav-btn .nav-icon { font-size: 1.3rem; }
+.nav-btn.active { color: var(--green); }
+.nav-btn.active .nav-icon { filter: drop-shadow(0 0 6px var(--green)); }
+
+/* ===== SCREENS ===== */
+.screen { display: none; padding: 16px; }
+.screen.active { display: block; }
+
+/* ===== HOME SCREEN ===== */
+.greeting {
+  background: linear-gradient(135deg, var(--card) 0%, #1a2d4a 100%);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.greeting::before {
+  content: '💪';
+  position: absolute;
+  font-size: 80px;
+  opacity: 0.06;
+  left: -10px; top: -10px;
+}
+.greeting h2 { font-size: 1.2rem; font-weight: 900; color: var(--text); margin-bottom: 4px; }
+.greeting p { font-size: 0.82rem; color: var(--muted); margin-bottom: 14px; }
+.progress-row { display: flex; gap: 10px; }
+.prog-item {
+  flex: 1;
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+.prog-item .p-val { font-size: 1rem; font-weight: 900; display: block; }
+.prog-item .p-lbl { font-size: 0.65rem; color: var(--muted); margin-top: 2px; }
+.prog-item.green .p-val { color: var(--green); }
+.prog-item.orange .p-val { color: var(--orange); }
+.prog-item.blue .p-val { color: var(--blue); }
+
+/* CALORIE RING */
+.cal-ring-wrap {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.ring-container { position: relative; width: 90px; height: 90px; flex-shrink: 0; }
+.ring-container svg { transform: rotate(-90deg); }
+.ring-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.ring-center .kcal-num { font-size: 1rem; font-weight: 900; color: var(--green); display: block; }
+.ring-center .kcal-lbl { font-size: 0.58rem; color: var(--muted); }
+.ring-info { flex: 1; }
+.ring-info h3 { font-size: 0.88rem; font-weight: 800; margin-bottom: 10px; }
+.macro-bar { margin-bottom: 8px; }
+.macro-bar-top { display: flex; justify-content: space-between; font-size: 0.72rem; margin-bottom: 4px; }
+.macro-bar-track { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.macro-bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s; }
+
+/* TODAY'S MEALS */
+.section-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.section-title .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  display: inline-block;
+}
+.today-meals { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.today-meal {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.meal-dot {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.meal-dot.green { background: var(--green-dim); }
+.meal-dot.orange { background: var(--orange-dim); }
+.meal-dot.blue { background: var(--blue-dim); }
+.today-meal-info { flex: 1; }
+.today-meal-info .name { font-size: 0.82rem; font-weight: 700; }
+.today-meal-info .sub { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
+.meal-kcal-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--green);
+  background: var(--green-dim);
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+
+/* QUICK WORKOUT */
+.today-workout {
+  background: linear-gradient(135deg, #1a1030 0%, #2d1a50 100%);
+  border: 1px solid #3d2a6a;
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.today-workout .wo-info h4 { font-size: 0.88rem; font-weight: 800; color: var(--purple); }
+.today-workout .wo-info p { font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
+.wo-badge {
+  background: var(--purple-dim);
+  color: var(--purple);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* ===== MEALS SCREEN ===== */
+.meals-tab-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.meals-tab-bar::-webkit-scrollbar { display: none; }
+.meal-tab {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--muted);
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.meal-tab.active { background: var(--green); color: #000; border-color: var(--green); }
+
+.meals-panel { display: none; }
+.meals-panel.active { display: block; }
+
+.meal-card {
+  background: var(--card);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+}
+.meal-card-top {
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.meal-card-top:active { background: var(--card2); }
+.meal-card-icon {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.ic-green { background: var(--green-dim); }
+.ic-orange { background: var(--orange-dim); }
+.ic-blue { background: var(--blue-dim); }
+.ic-red { background: var(--red-dim); }
+.ic-purple { background: var(--purple-dim); }
+.meal-card-info { flex: 1; }
+.meal-card-info .mname { font-size: 0.88rem; font-weight: 800; }
+.meal-card-info .msub { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+.kcal-pill {
+  font-size: 0.72rem; font-weight: 800;
+  padding: 3px 8px; border-radius: 20px;
+}
+.kcal-green { color: var(--green); background: var(--green-dim); }
+.kcal-orange { color: var(--orange); background: var(--orange-dim); }
+.kcal-blue { color: var(--blue); background: var(--blue-dim); }
+.kcal-red { color: var(--red); background: var(--red-dim); }
+.kcal-purple { color: var(--purple); background: var(--purple-dim); }
+.expand-arrow { color: var(--muted); font-size: 0.75rem; transition: transform 0.2s; }
+.meal-card.open .expand-arrow { transform: rotate(180deg); }
+
+.meal-card-body { display: none; border-top: 1px solid var(--border); padding: 14px; }
+.meal-card.open .meal-card-body { display: block; }
+.ing-list { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.ing-tag {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.ing-tag.hi { background: var(--green-dim); border-color: #00d08433; color: var(--green); }
+.steps-title { font-size: 0.75rem; font-weight: 800; color: var(--muted); margin-bottom: 8px; }
+.step-item {
+  display: flex; gap: 8px; margin-bottom: 8px;
+  font-size: 0.8rem; line-height: 1.5;
+}
+.snum {
+  min-width: 20px; height: 20px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; font-weight: 800; color: #000;
+  flex-shrink: 0; margin-top: 2px;
+}
+.snum.green { background: var(--green); }
+.snum.orange { background: var(--orange); }
+.snum.blue { background: var(--blue); }
+.snum.red { background: var(--red); }
+.snum.purple { background: var(--purple); }
+.tip {
+  background: #1a1500;
+  border: 1px solid #3a3000;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 0.75rem;
+  color: var(--gold);
+  margin-top: 8px;
+}
+
+/* PROTEIN CHIPS */
+.protein-section { margin-top: 12px; }
+.protein-title { font-size: 0.75rem; color: var(--muted); font-weight: 700; margin-bottom: 8px; }
+.protein-options { display: flex; gap: 8px; flex-wrap: wrap; }
+.protein-chip {
+  background: var(--orange-dim);
+  border: 1px solid #ffa50233;
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--orange);
+}
+
+/* ===== WORKOUT SCREEN ===== */
+.day-card {
+  background: var(--card);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+}
+.day-header {
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.day-header.dred    { background: linear-gradient(135deg, #4a0a0f, #7a1520); }
+.day-header.dblue   { background: linear-gradient(135deg, #0a1a4a, #15307a); }
+.day-header.dgreen  { background: linear-gradient(135deg, #0a2a1a, #155030); }
+.day-header.dorange { background: linear-gradient(135deg, #2a1a0a, #4a3010); }
+.day-header.dpurple { background: linear-gradient(135deg, #1a0a2a, #35155a); }
+.day-header.drest   { background: linear-gradient(135deg, #1a2235, #222d42); }
+.day-title { font-size: 0.9rem; font-weight: 800; color: #fff; }
+.day-sub { font-size: 0.7rem; color: rgba(255,255,255,0.6); margin-top: 2px; }
+.day-tag {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  font-size: 0.68rem;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.day-body { display: none; padding: 12px; border-top: 1px solid var(--border); }
+.day-card.open .day-body { display: block; }
+
+.ex-item {
+  background: var(--bg2);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border: 1px solid var(--border);
+}
+.ex-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 4px; }
+.ex-name { font-size: 0.82rem; font-weight: 700; }
+.ex-sets {
+  font-size: 0.68rem; font-weight: 800; padding: 2px 8px; border-radius: 20px; white-space: nowrap; flex-shrink: 0;
+}
+.es-red    { background: var(--red-dim);    color: var(--red); }
+.es-blue   { background: var(--blue-dim);   color: var(--blue); }
+.es-green  { background: var(--green-dim);  color: var(--green); }
+.es-orange { background: var(--orange-dim); color: var(--orange); }
+.es-purple { background: var(--purple-dim); color: var(--purple); }
+.ex-note { font-size: 0.72rem; color: var(--muted); margin-bottom: 6px; }
+.yt-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: rgba(255,0,0,0.12);
+  border: 1px solid rgba(255,0,0,0.25);
+  color: #ff6b6b;
+  font-size: 0.7rem; font-weight: 700;
+  padding: 4px 10px; border-radius: 20px;
+  text-decoration: none;
+}
+.cardio-box {
+  background: var(--green-dim);
+  border: 1px solid #00d08433;
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.cardio-box .ct { font-size: 0.8rem; font-weight: 700; color: var(--green); }
+.cardio-box .cs { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
+
+/* ===== WEIGHT TRACKER ===== */
+.weight-header-card {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+}
+.weight-big {
+  text-align: center;
+  margin-bottom: 16px;
+}
+.weight-big .current { font-size: 3rem; font-weight: 900; color: var(--green); }
+.weight-big .unit { font-size: 1rem; color: var(--muted); }
+.weight-big .target { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+.weight-big .diff { font-size: 0.85rem; font-weight: 700; }
+.weight-big .diff.over { color: var(--red); }
+
+.add-weight-form {
+  display: flex; gap: 8px; align-items: center;
+}
+.weight-input {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+  direction: ltr;
+}
+.weight-input:focus { outline: none; border-color: var(--green); }
+.add-weight-btn {
+  background: var(--green);
+  color: #000;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 18px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.weight-chart-wrap {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 16px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+}
+.chart-title { font-size: 0.85rem; font-weight: 800; margin-bottom: 12px; color: var(--text); }
+#weightChart { width: 100%; height: 160px; }
+
+.weight-log {
+  background: var(--card);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.log-header {
+  padding: 12px 16px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.clear-btn {
+  background: var(--red-dim);
+  color: var(--red);
+  border: none;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-family: 'Cairo', sans-serif;
+  cursor: pointer;
+}
+.log-item {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+}
+.log-item:last-child { border-bottom: none; }
+.log-item .log-date { color: var(--muted); }
+.log-item .log-val { font-weight: 800; color: var(--green); }
+.log-item .log-diff { font-size: 0.7rem; }
+.log-item .log-diff.up { color: var(--red); }
+.log-item .log-diff.down { color: var(--green); }
+.log-empty { padding: 20px; text-align: center; color: var(--muted); font-size: 0.82rem; }
+
+/* ===== REMINDER SCREEN ===== */
+.reminder-card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.reminder-icon {
+  width: 44px; height: 44px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+.reminder-info { flex: 1; }
+.reminder-info h4 { font-size: 0.88rem; font-weight: 800; }
+.reminder-info p { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+.toggle-switch {
+  position: relative;
+  width: 44px; height: 24px;
+  flex-shrink: 0;
+}
+.toggle-switch input { display: none; }
+.toggle-slider {
+  position: absolute; inset: 0;
+  background: var(--border);
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.toggle-slider::after {
+  content: '';
+  position: absolute;
+  width: 18px; height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  top: 3px; right: 3px;
+  transition: transform 0.2s;
+}
+.toggle-switch input:checked + .toggle-slider { background: var(--green); }
+.toggle-switch input:checked + .toggle-slider::after { transform: translateX(-20px); }
+
+.info-card {
+  background: var(--blue-dim);
+  border: 1px solid #2196f333;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  font-size: 0.8rem;
+  color: var(--blue);
+  line-height: 1.6;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.screen.active { animation: fadeUp 0.25s ease; }
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="app-header">
+  <div class="header-logo">
+    <div class="icon">🏋️</div>
+    <div>
+      <h1>خطة أحمد</h1>
+      <p>Power Gym القطيف</p>
+    </div>
+  </div>
+  <div class="header-stats">
+    <div class="hstat">
+      <span class="val">2,350</span>
+      <span class="lbl">سعرة/يوم</span>
+    </div>
+    <div class="hstat">
+      <span class="val" id="currentWeightHeader">93.9</span>
+      <span class="lbl">كغ حالي</span>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="nav-btn active" onclick="showScreen('home', this)">
+    <span class="nav-icon">🏠</span>الرئيسية
+  </button>
+  <button class="nav-btn" onclick="showScreen('meals', this)">
+    <span class="nav-icon">🥗</span>الوجبات
+  </button>
+  <button class="nav-btn" onclick="showScreen('workout', this)">
+    <span class="nav-icon">🏋️</span>التمارين
+  </button>
+  <button class="nav-btn" onclick="showScreen('weight', this)">
+    <span class="nav-icon">⚖️</span>وزني
+  </button>
+  <button class="nav-btn" onclick="showScreen('reminders', this)">
+    <span class="nav-icon">🔔</span>تذكير
+  </button>
+  <button class="nav-btn" onclick="showScreen('calories', this)">
+    <span class="nav-icon">🔥</span>سعراتي
+  </button>
+</div>
+
+<!-- ===== HOME SCREEN ===== -->
+<div class="screen active" id="screen-home">
+  <div class="greeting">
+    <h2 id="greetingText">مرحبا أحمد! 👋</h2>
+    <p id="greetingDate"></p>
+    <div class="progress-row">
+      <div class="prog-item green">
+        <span class="p-val">5</span>
+        <span class="p-lbl">أيام تمرين</span>
+      </div>
+      <div class="prog-item orange">
+        <span class="p-val" id="daysToGoal">—</span>
+        <span class="p-lbl">كغ للهدف</span>
+      </div>
+      <div class="prog-item blue">
+        <span class="p-val">2,350</span>
+        <span class="p-lbl">هدف سعرات</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALORIE RING -->
+  <div class="cal-ring-wrap">
+    <div class="ring-container">
+      <svg width="90" height="90" viewBox="0 0 90 90">
+        <circle cx="45" cy="45" r="38" fill="none" stroke="#2a3650" stroke-width="8"/>
+        <circle cx="45" cy="45" r="38" fill="none" stroke="#00d084" stroke-width="8"
+          stroke-dasharray="238.76" stroke-dashoffset="0" stroke-linecap="round"/>
+      </svg>
+      <div class="ring-center">
+        <span class="kcal-num">2,350</span>
+        <span class="kcal-lbl">هدف</span>
+      </div>
+    </div>
+    <div class="ring-info">
+      <h3>توزيع الماكرو اليومي</h3>
+      <div class="macro-bar">
+        <div class="macro-bar-top">
+          <span>🥩 بروتين</span><span style="color:var(--green)">147غ</span>
+        </div>
+        <div class="macro-bar-track">
+          <div class="macro-bar-fill" style="width:100%;background:var(--green)"></div>
+        </div>
+      </div>
+      <div class="macro-bar">
+        <div class="macro-bar-top">
+          <span>🍚 كربوهيدرات</span><span style="color:var(--orange)">294غ</span>
+        </div>
+        <div class="macro-bar-track">
+          <div class="macro-bar-fill" style="width:100%;background:var(--orange)"></div>
+        </div>
+      </div>
+      <div class="macro-bar">
+        <div class="macro-bar-top">
+          <span>🥑 دهون</span><span style="color:var(--blue)">65غ</span>
+        </div>
+        <div class="macro-bar-track">
+          <div class="macro-bar-fill" style="width:100%;background:var(--blue)"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TODAY MEALS -->
+  <div class="section-title"><span class="dot"></span> وجبات اليوم</div>
+  <div class="today-meals">
+    <div class="today-meal">
+      <div class="meal-dot green">🌅</div>
+      <div class="today-meal-info">
+        <div class="name">الفطور</div>
+        <div class="sub">توست + زبدة فول + عسل + حليب + بروتين متغير</div>
+      </div>
+      <span class="meal-kcal-badge">~550</span>
+    </div>
+    <div class="today-meal">
+      <div class="meal-dot orange">🍽️</div>
+      <div class="today-meal-info">
+        <div class="name">الغداء</div>
+        <div class="sub">دجاج/لحم + رز/بطاطس/خبز + سلطة</div>
+      </div>
+      <span class="meal-kcal-badge">~800-1000</span>
+    </div>
+    <div class="today-meal">
+      <div class="meal-dot blue">🌙</div>
+      <div class="today-meal-info">
+        <div class="name">العشاء</div>
+        <div class="sub">8 خيارات متنوعة</div>
+      </div>
+      <span class="meal-kcal-badge">~750-800</span>
+    </div>
+  </div>
+
+  <!-- TODAY WORKOUT -->
+  <div class="section-title"><span class="dot"></span> تمرين اليوم</div>
+  <div class="today-workout">
+    <div class="wo-info">
+      <h4 id="todayWorkoutName">🏋️ جاري التحميل...</h4>
+      <p id="todayWorkoutSub"></p>
+    </div>
+    <span class="wo-badge" id="todayWorkoutBadge">—</span>
+  </div>
+
+  <!-- INBODY SUMMARY -->
+  <div class="section-title"><span class="dot"></span> نتائج InBody</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px;text-align:center;">
+      <div style="font-size:1.4rem;font-weight:900;color:var(--red)">34.6%</div>
+      <div style="font-size:0.7rem;color:var(--muted);margin-top:2px">دهون الجسم</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px;text-align:center;">
+      <div style="font-size:1.4rem;font-weight:900;color:var(--blue)">34.9kg</div>
+      <div style="font-size:0.7rem;color:var(--muted);margin-top:2px">كتلة العضلات</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px;text-align:center;">
+      <div style="font-size:1.4rem;font-weight:900;color:var(--orange)">61/100</div>
+      <div style="font-size:0.7rem;color:var(--muted);margin-top:2px">InBody Score</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px;text-align:center;">
+      <div style="font-size:1.4rem;font-weight:900;color:var(--green)">72.3kg</div>
+      <div style="font-size:0.7rem;color:var(--muted);margin-top:2px">الوزن المستهدف</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MEALS SCREEN ===== -->
+<div class="screen" id="screen-meals">
+  <div class="meals-tab-bar">
+    <button class="meal-tab active" onclick="showMealTab('breakfast', this)">🌅 الفطور</button>
+    <button class="meal-tab" onclick="showMealTab('lunch', this)">🍽️ الغداء</button>
+    <button class="meal-tab" onclick="showMealTab('dinner', this)">🌙 العشاء</button>
+  </div>
+
+  <!-- BREAKFAST -->
+  <div class="meals-panel active" id="mpanel-breakfast">
+    <div class="meal-card" id="mc-b1">
+      <div class="meal-card-top" onclick="toggleMeal('mc-b1')">
+        <div class="meal-card-icon ic-green">🍞</div>
+        <div class="meal-card-info">
+          <div class="mname">الفطور الثابت يومياً</div>
+          <div class="msub">توست + زبدة فول + عسل + حليب</div>
+        </div>
+        <span class="kcal-pill kcal-green">~470</span>
+        <span class="expand-arrow">▼</span>
+      </div>
+      <div class="meal-card-body">
+        <div class="ing-list">
+          <span class="ing-tag hi">توست 2 شريحة</span>
+          <span class="ing-tag hi">زبدة فول سوداني 1.5م.ك</span>
+          <span class="ing-tag hi">عسل 1م.ص</span>
+          <span class="ing-tag hi">حليب/لبن كوب</span>
+        </div>
+        <div class="steps-title">👨‍🍳 الطريقة</div>
+        <div class="step-item"><span class="snum green">1</span>حمّص التوست في المحمصة.</div>
+        <div class="step-item"><span class="snum green">2</span>ادهن زبدة الفول السوداني وهو ساخن.</div>
+        <div class="step-item"><span class="snum green">3</span>رش ملعقة عسل فوقه.</div>
+        <div class="step-item"><span class="snum green">4</span>اشرب الحليب بجانبه مع البروتين المتغير.</div>
+        <div class="protein-section">
+          <div class="protein-title">🔄 أضف بروتين متغير (~80 سعرة) — اختر واحد:</div>
+          <div class="protein-options">
+            <span class="protein-chip">🥚 بيضة واحدة</span>
+            <span class="protein-chip">🫙 زبادي يوناني 100غ</span>
+            <span class="protein-chip">🧀 لبنة 2م.ك</span>
+          </div>
+        </div>
+        <div class="tip">💡 المجموع مع البروتين: ~550 سعرة</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LUNCH -->
+  <div class="meals-panel" id="mpanel-lunch">
+    <div style="background:var(--green-dim);border:1px solid #00d08433;border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:0.78rem;color:var(--green);font-weight:600;">
+      🎯 هدف الغداء: ~800–1,000 سعرة · 6 خيارات
+    </div>
+
+    <!-- L1 Chicken Rice -->
+    <div class="meal-card" id="mc-l1">
+      <div class="meal-card-top" onclick="toggleMeal('mc-l1')">
+        <div class="meal-card-icon ic-green">🍗🍚</div>
+        <div class="meal-card-info">
+          <div class="mname">دجاج مشوي + رز</div>
+          <div class="msub">صدر دجاج 200غ + رز 1.5 كوب + سلطة</div>
+        </div>
+        <span class="kcal-pill kcal-green">~860</span>
+        <span class="expand-arrow">▼</span>
+      </div>
+      <div class="meal-card-body">
+        <div class="ing-list">
+          <span class="ing-tag hi">دجاج 200غ</span><span class="ing-tag hi">رز 1.5 كوب</span>
+          <span class="ing-tag">سلطة + زيت زيتون</span><span class="ing-tag">ملح، كمون، بابريكا، ليمون</span>
+        </div>
+        <div class="steps-title">👨‍🍳 الطريقة</div>
+        <div class="step-item"><span class="snum green">1</span>تبّل الدجاج بالملح، الكمون، البابريكا وليمون. اتركه 15 دقيقة.</div>
+        <div class="step-item"><span class="snum green">2</span>قلاية هوائية 180° لمدة 15 دقيقة، اقلبه في المنتصف.</div>
+        <div class="step-item"><span class="snum green">3</span>اطبخ الرز: كوب رز + 1.5 كوب ماء + ملح، 20 دقيقة.</div>
+        <div class="step-item"><span class="snum green">4</span>قدّم الدجاج فوق الرز مع سلطة خضراء.</div>
+      </div>
+    </div>
+
+    <!-- L2 Chicken Potato -->
+    <div class="meal-card" id="mc-l2">
+      <div class="meal-card-top" onclick="toggleMeal('mc-l2')">
+        <div class="meal-card-icon ic-orange">🍗🍟</div>
+        <div class="meal-card-info">
+          <div class="mname">دجاج مشوي + بطاطس</div>
+          <div class="msub">دجاج 200غ + بطاطس Lamb Weston 200غ</div>
+        </div>
+        <span class="kcal-pill kcal-orange">~800</span>
+        <span class="expand-arrow">▼</span>
+      </div>
+      <div class="meal-card-body">
+        <div class="ing-list">
+          <span class="ing-tag hi">دجاج 200غ</span><span class="ing-tag hi">بطاطس Lamb Weston 200غ</span>
+          <span class="ing-tag">سلطة + زيت زيتون</span><span class="ing-tag">ملح، كمون، بابريكا</span>
+        </div>
+        <div class="steps-title">👨‍🍳 الطريقة</div>
+        <div class="step-item"><span class="snum orange">1</span>البطاطس: من الفريزر مباشرة على 200° لمدة 18-20 دقيقة.</div>
+        <div class="step-item"><span class="snum orange">2</span>الدجاج: تبّله واشوِه 180° لمدة 15 دقيقة.</div>
+        <div class="step-item"><span class="snum orange">3</span>قدّم مع سلطة جانبية.</div>
+        <div class="tip">💡 البطاطس الهوائية توفر ~80 سعرة عن القلي!</div>
+      </div>
+    </div>
+
+    <!-- L3 Chicken Bread -->
+    <div class="meal-card" id="mc-l3">
+      <div class="meal-card-top" onclick="toggleMeal('mc-l3')">
+        <div class="meal-card-icon ic-blue">🍗🫓</div>
+        <div class="meal-card-info">
+          <div class="mname">دجاج مشوي + خبز عربي</div>
+          <div class="msub">دجاج 200غ + رغيف عربي + سلطة</div>
+        </div>
+        <span class="kcal-pill kcal-blue">~660</span>
+        <span class="expand-arrow">▼</span>
+      </div>
+      <div class="meal-card-body">
+        <div class="ing-list">
+          <span class="ing-tag hi">دجاج 200غ</span><span class="ing-tag hi">خبز عربي 1 رغيف</span>
+          <span class="ing-tag">سلطة + زيت زيتون</span>
+        </div>
+        <div class="steps-title">👨‍🍳 الطريقة</div>
+        <div class="step-item"><span class="snum blue">1</span>تبّل الدجاج وشوِه في القلاية 180° لمدة 15 دقيقة.</div>
+        <div class="step-item"><span class="snum blue">2</span>سخّن الرغيف على نار مباشرة دقيقتين.</div>
+        <div class="step-item"><span class="snum blue">3</span>قدّم الدجاج مع الخبز والسلطة.</div>
+        <div class="tip">💡 سعراته أقل — تقدر تزيد رغيف ثاني أو كمية دجاج أكثر.</div>
+      </div>
+    </div>
+
+    <!-- L4 Meat Rice -->
+    <div class="meal-card" id="mc-l4">
+      <div class="meal-card-top" onclick="toggleMeal('mc-l4')">
+        <div class="meal-card-icon ic-red">🥩🍚</div>
+        <div class="meal-card-info">
+          <div class="mname">لحم مشوي + رز</div>
+          <div class="msub">لحم بقر/غنم 200غ + رز 1.5 كوب + سلطة</div>
+        </div>
+        <span class="kcal-pill kcal-red">~860</span>
+        <span class="expand-arrow">▼</span>
+      </div>
+      <div class="meal-card-body">
+        <div class="ing-list">
+          <span class="ing-tag hi">لحم بقر/غنم 200غ</span><span class="ing-tag hi">رز 1.5 كوب</span>
+          <span class="ing-tag">سلطة + زيت زيتون</span><span class="ing-tag">ملح، فلفل أسود</span>
+        </div>
+        <div class="steps-title">👨‍🍳 الطريقة</div>
+        <div class="step-item"><span class="snum red">1</span>اطبخ الرز: كوب رز + 1.5 كوب ماء + ملح، 20 دقيقة.</div>
+        <div class="step-item"><span class="snum red">2</span>تبّل اللحم بملح وفلفل فقط.</div>
+        <div class="step-item"><span class="snum red">3</span>اشوِه في مقلاة ساخنة 4-5 دقائق من كل جهة.</div>
+        <div class="step-item"><span class="snum red">4</span>قدّم فوق الرز مع سلطة.</div>
+      </div>
+    </div>
+
+    <!-- L5 Meat Potato -->
+    <div class="meal-card" id="mc-l5">
+      <div class="meal-card-top" onclick="toggleMeal('mc-l5')">
+        <div class="meal-card-icon ic-orange">🥩🍟</div>
+        <div class="meal-card-info">
+          <div class="mname">لحم مشوي + بطاطس</div>
+          <div class="msub">لحم 200غ + بطاطس Lamb Weston 200غ</div>
+        </div>
+        <span class="kcal-pill kcal-orange">~800</span>
+        <span class="expand-arrow">▼</span>
+      </div>
+      <div class="meal-card-body">
+        <div class="ing-list">
+          <span class="ing-tag hi">لحم 200غ</span><span class="ing-tag hi">بطاطس Lamb Weston 200غ</span>
+          <span class="ing-tag">سلطة + زيت زيتون</span><span class="ing-tag">ملح، فلفل أسود</span>
+        </div>
+        <div class="steps-title">👨‍🍳 الطريقة</div>
+        <div class="step-item"><span class="snum orange">1</span>البطاطس: من الفريزر على 200° لمدة 18-20 دقيقة.</div>
+        <div class="step-item"><span class="snum orange">2</span>اشوِ اللحم في مقلاة ساخنة 4-5 دقائق من كل جهة.</div>
+        <div class="step-item"><span class="snum orange">3</span>قدّم مع سلطة جانبية.</div>
+      </div>
+    </div>
+
+    <!-- L6 Meat Bread -->
+    <div class="meal-card" id="mc-l6">
+      <div class="meal-card-top" onclick="toggleMeal('mc-l6')">
+        <div class="meal-card-icon ic-purple">🥩🫓</div>
+        <div class="meal-card-info">
+          <div class="mname">لحم مشوي + خبز عربي</div>
+          <div class="msub">لحم 200غ + رغيف عربي + سلطة</div>
+        </div>
+        <span class="kcal-pill kcal-purple">~660</span>
+        <span class="expand-arrow">▼</span>
+      </div>
+      <div class="meal-card-body">
+        <div class="ing-list">
+          <span class="ing-tag hi">لحم 200غ</span><span class="ing-tag hi">خبز عربي 1 رغيف</span>
+          <span class="ing-tag">سلطة + زيت زيتون</span>
+        </div>
+        <div class="steps-title">👨‍🍳 الطريقة</div>
+        <div class="step-item"><span class="snum purple">1</span>تبّل اللحم وشوِه في مقلاة ساخنة 4-5 دقائق.</div>
+        <div class="step-item"><span class="snum purple">2</span>سخّن الرغيف على نار مباشرة دقيقتين.</div>
+        <div class="step-item"><span class="snum purple">3</span>قدّم مع الخبز والسلطة.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DINNER -->
+  <div class="meals-panel" id="mpanel-dinner">
+    <div style="background:var(--blue-dim);border:1px solid #2196f333;border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:0.78rem;color:var(--blue);font-weight:600;">
+      🎯 هدف العشاء: ~750–800 سعرة · 8 خيارات
+    </div>
+
+    <div class="meal-card" id="mc-d1">
+      <div class="meal-card-top" onclick="toggleMeal('mc-d1')">
+        <div class="meal-card-icon ic-green">🌯</div>
+        <div class="meal-card-info"><div class="mname">شاورما دجاج بالتوست</div><div class="msub">دجاج 210غ + توست + جبن شيدر</div></div>
+        <span class="kcal-pill kcal-green">~750</span><span class="expand-arrow">▼</span>
+      </div>
+      <div class="meal-card-body">
+        <div class="ing-list"><span class="ing-tag hi">دجاج 210غ</span><span class="ing-tag hi">توست 2 شريحة</span><span class="ing-tag hi">شيدر+موزاريلا 30غ</span><span class="ing-tag">ملح، كمون، بابريكا، ليمون</span></div>
+        <div class="steps-title">👨‍🍳 الطريقة</div>
+        <div class="step-item"><span class="snum green">1</span>تبّل الدجاج وضعه في القلاية 180° لمدة 15 دقيقة.</div>
+        <div class="step-item"><span class="snum green">2</span>ضع الدجاج فوق التوست ورش الجبن فوقه ليذوب.</div>
+      </div>
+    </div>
+
+    <div class="meal-card" id="mc-d2">
+      <div class="meal-card-top" onclick="toggleMeal('mc-d2')">
+        <div class="meal-card-icon ic-orange">🍞🥩</div>
+        <div class="meal-card-info"><div class="mname">توست اللحم المفروم</div><div class="msub">لحم مفروم 180غ + توست + جبن مذاب</div></div>
+        <span class="kcal-pill kcal-orange">~780</span><span class="expand-arrow">▼</span>
+      </div>
+      <div class="meal-card-body">
+        <div class="ing-list"><span class="ing-tag hi">لحم مفروم 180غ</span><span class="ing-tag hi">توست 2 شريحة</span><span class="ing-tag hi">شيدر+موزاريلا 40غ</span><span class="ing-tag">ملح، فلفل، كمون</span></div>
+        <div class="steps-title">👨‍🍳 الطريقة</div>
+        <div class="step-item"><span class="snum orange">1</span>اطبخ اللحم في مقلاة مع البهارات حتى ينضج.</div>
+        <div class="step-item"><span class="snum orange">2</span>ضع اللحم فوق التوست ورش الجبن.</div>
+        <div class="step-item"><span class="snum orange">3</span>ضعه في القلاية 180° لمدة 5 دقائق حتى يذوب الجبن.</div>
+      </div>
+    </div>
+
+    <div class="meal-card" id="mc-d3">
+      <div class="meal-card-top" onclick="toggleMeal('mc-d3')">
+        <div class="meal-card-icon ic-blue">🫓🧀</div>
+        <div class="meal-card-info"><div class="mname">ساندويش دجاج بالفيتا</div><div class="msub">دجاج 210غ + توست + جبنة فيتا</div></div>
+        <span class="kcal-pill kcal-blue">~740</span><span class="expand-arrow">▼</span>
+      </div>
+      <div class="meal-card-body">
+        <div class="ing-list"><span class="ing-tag hi">دجاج 210غ</span><span class="ing-tag hi">توست 2 شريحة</span><span class="ing-tag hi">جبنة فيتا 30غ</span></div>
+        <div class="steps-title">👨‍🍳 الطريقة</div>
+        <div class="step-item"><span class="snum blue">1</span>اشوِ الدجاج في القلاية 180° لمدة 15 دقيقة.</div>
+        <div class="step-item"><span class="snum blue">2</span>ادهن الفيتا على التوست ثم ضع الدجاج فوقه.</div>
+      </div>
+    </div>
+
+    <div class="meal-card" id="mc-d4">
+      <div class="meal-card-top" onclick="toggleMeal('mc-d4')">
+        <div class="meal-card-icon ic-red">🥩🍟</div>
+        <div class="meal-card-info"><div class="mname">لحم وبطاطس مع جبن</div><div class="msub">لحم 160غ + بطاطس 250غ + شيدر</div></div>
+        <span class="kcal-pill kcal-red">~800</span><span class="expand-arrow">▼</span>
+      </div>
+      <div class="meal-card-body">
+        <div class="ing-list"><span class="ing-tag hi">لحم 160غ</span><span class="ing-tag hi">بطاطس Lamb Weston 250غ</span><span class="ing-tag hi">شيدر مبشور 40غ</span></div>
+        <div class="steps-title">👨‍🍳 الطريقة</div>
+        <div class="step-item"><span class="snum red">1</span>البطاطس: على 200° لمدة 18-20 دقيقة.</div>
+        <div class="step-item"><span class="snum red">2</span>اشوِ اللحم في مقلاة 4-5 دقائق من كل جهة.</div>
+        <div class="step-item"><span class="snum red">3</span>ضع اللحم فوق البطاطس ورش الجبن، أعده للقلاية دقيقتين.</div>
+      </div>
+    </div>
+
+    <div class="meal-card" id="mc-d5">
+      <div class="meal-card-top" onclick="toggleMeal('mc-d5')">
+        <div class="meal-card-icon ic-purple">🍔</div>
+        <div class="meal-card-info"><div class="mname">برجر لحم بدون خبز</div><div class="msub">لحم مفروم 130غ + بطاطس/رز</div></div>
+        <span class="kcal-pill kcal-purple">~770</span><span class="expand-arrow">▼</span>
+      </div>
+      <div class="meal-card-body">
+        <div class="ing-list"><span class="ing-tag hi">لحم مفروم 130غ</span><span class="ing-tag hi">بطاطس 200غ أو رز كوب</span><span class="ing-tag">ملح، فلفل، كمون، بقدونس</span></div>
+        <div class="steps-title">👨‍🍳 الطريقة</div>
+        <div class="step-item"><span class="snum purple">1</span>اعجن اللحم مع البهارات وشكّله قرص.</div>
+        <div class="step-item"><span class="snum purple">2</span>اشوِه في القلاية 190° لمدة 12 دقيقة.</div>
+        <div class="tip">💡 يُؤكل بالشوكة والسكين بجانب البطاطس أو الرز.</div>
+      </div>
+    </div>
+
+    <div class="meal-card" id="mc-d6">
+      <div class="meal-card-top" onclick="toggleMeal('mc-d6')">
+        <div class="meal-card-icon ic-green">🍚🥩</div>
+        <div class="meal-card-info"><div class="mname">لحم مفروم مع رز</div><div class="msub">لحم مفروم 130غ مخلوط مع رز</div></div>
+        <span class="kcal-pill kcal-green">~760</span><span class="expand-arrow">▼</span>
+      </div>
+      <div class="meal-card-body">
+        <div class="ing-list"><span class="ing-tag hi">لحم مفروم 130غ</span><span class="ing-tag hi">رز مطبوخ كوب</span><span class="ing-tag">ملح، فلفل، كمون، بقدونس</span></div>
+        <div class="steps-title">👨‍🍳 الطريقة</div>
+        <div class="step-item"><span class="snum green">1</span>اطبخ الرز بالطريقة العادية.</div>
+        <div class="step-item"><span class="snum green">2</span>اطبخ اللحم في مقلاة خفيفة الزيت مع البهارات.</div>
+        <div class="step-item"><span class="snum green">3</span>اخلطهم معاً في الصحن.</div>
+      </div>
+    </div>
+
+    <div class="meal-card" id="mc-d7">
+      <div class="meal-card-top" onclick="toggleMeal('mc-d7')">
+        <div class="meal-card-icon ic-orange">🥩</div>
+        <div class="meal-card-info"><div class="mname">ستيك لحم</div><div class="msub">ستيك 130غ + بطاطس/رز</div></div>
+        <span class="kcal-pill kcal-orange">~780</span><span class="expand-arrow">▼</span>
+      </div>
+      <div class="meal-card-body">
+        <div class="ing-list"><span class="ing-tag hi">ستيك لحم 130غ</span><span class="ing-tag hi">بطاطس 180غ أو رز كوب</span><span class="ing-tag">ملح خشن، فلفل أسود، زيت زيتون</span></div>
+        <div class="steps-title">👨‍🍳 الطريقة</div>
+        <div class="step-item"><span class="snum orange">1</span>أخرج الستيك من الثلاجة 15 دقيقة قبل الطبخ.</div>
+        <div class="step-item"><span class="snum orange">2</span>تبّله بملح خشن وفلفل فقط.</div>
+        <div class="step-item"><span class="snum orange">3</span>سخّن مقلاة جيداً على نار عالية + زيت زيتون.</div>
+        <div class="step-item"><span class="snum orange">4</span>اشوِه 3-4 دقائق من كل جهة واتركه يرتاح دقيقتين.</div>
+        <div class="tip">💡 المقلاة لازم تكون ساخنة جداً — سر الستيك اللذيذ!</div>
+      </div>
+    </div>
+
+    <div class="meal-card" id="mc-d8">
+      <div class="meal-card-top" onclick="toggleMeal('mc-d8')">
+        <div class="meal-card-icon ic-red">🍗🌶️🍟</div>
+        <div class="meal-card-info"><div class="mname">قطع دجاج الأريم + بطاطس</div><div class="msub">Spicy Chicken Chunks + Lamb Weston</div></div>
+        <span class="kcal-pill kcal-red">~800</span><span class="expand-arrow">▼</span>
+      </div>
+      <div class="meal-card-body">
+        <div class="ing-list"><span class="ing-tag hi">قطع الأريم مجمدة 200غ</span><span class="ing-tag hi">بطاطس Lamb Weston 200غ</span></div>
+        <div class="steps-title">👨‍🍳 الطريقة</div>
+        <div class="step-item"><span class="snum red">1</span>البطاطس: في القلاية على 200° لمدة 10 دقائق أولاً.</div>
+        <div class="step-item"><span class="snum red">2</span>أضف قطع الأريم وواصل الطبخ 15 دقيقة إضافية.</div>
+        <div class="step-item"><span class="snum red">3</span>قلّبهم في المنتصف.</div>
+        <div class="tip">💡 لا تضيف زيت — الدجاج فيه دهن كافي!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WORKOUT SCREEN ===== -->
+<div class="screen" id="screen-workout">
+  <div style="background:linear-gradient(135deg,#1a0a0f,#3a1520);border-radius:16px;padding:14px 16px;margin-bottom:14px;border:1px solid #4a2030;">
+    <div style="font-size:0.88rem;font-weight:800;color:#ff6b6b;margin-bottom:4px;">🔰 برنامج مبتدئ — خسارة دهون</div>
+    <div style="font-size:0.75rem;color:var(--muted);">5 أيام أسبوعياً · 60-75 دقيقة/جلسة · Power Gym القطيف</div>
+  </div>
+
+  <!-- HOME/GYM TOGGLE -->
+  <div style="display:flex;gap:8px;margin-bottom:14px;">
+    <button id="btn-gym" onclick="switchWorkout('gym')" style="flex:1;padding:10px;border-radius:12px;border:none;font-family:'Cairo',sans-serif;font-size:0.85rem;font-weight:800;cursor:pointer;background:var(--red);color:#fff;">🏋️ النادي</button>
+    <button id="btn-home" onclick="switchWorkout('home')" style="flex:1;padding:10px;border-radius:12px;border:2px solid var(--border);font-family:'Cairo',sans-serif;font-size:0.85rem;font-weight:800;cursor:pointer;background:var(--card);color:var(--muted);">🏠 البيت</button>
+  </div>
+
+  <!-- GYM WORKOUTS -->
+  <div id="workout-gym">
+  <div class="day-card" id="dc-1">
+    <div class="day-header dred" onclick="toggleDay('dc-1')">
+      <div><div class="day-title">الأحد — صدر + ترايسبس</div><div class="day-sub">Chest + Triceps</div></div>
+      <span class="day-tag">~400 سعرة 🔥</span>
+    </div>
+    <div class="day-body">
+      <div class="ex-item">
+        <div class="ex-top"><span class="ex-name">🏋️ Chest Press Machine</span><span class="ex-sets es-red">3 × 12</span></div>
+        <div class="ex-note">اضبط وزناً تقدر تكمل معه 12 تكرار بشكل نظيف</div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=chest+press+machine+beginners" target="_blank">▶ يوتيوب</a>
+      </div>
+      <div class="ex-item">
+        <div class="ex-top"><span class="ex-name">🦋 Pec Deck Machine</span><span class="ex-sets es-red">3 × 12</span></div>
+        <div class="ex-note">يعزل عضلة الصدر — مناسب للمبتدئين</div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=pec+deck+machine+beginners" target="_blank">▶ يوتيوب</a>
+      </div>
+      <div class="ex-item">
+        <div class="ex-top"><span class="ex-name">💪 Tricep Pushdown Cable</span><span class="ex-sets es-red">3 × 12</span></div>
+        <div class="ex-note">ابقِ مرفقيك ثابتين بجانب جسمك</div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=tricep+pushdown+cable+beginners" target="_blank">▶ يوتيوب</a>
+      </div>
+      <div class="ex-item">
+        <div class="ex-top"><span class="ex-name">🔱 Overhead Tricep Extension</span><span class="ex-sets es-red">3 × 12</span></div>
+        <div class="ex-note">يستهدف الجزء الطويل من الترايسبس</div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=overhead+tricep+extension+machine" target="_blank">▶ يوتيوب</a>
+      </div>
+      <div class="cardio-box">
+        <div><div class="ct">🏃 كارديو — مشاية</div><div class="cs">20 دقيقة على سرعة 5.5-6 كم/ساعة</div></div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=treadmill+fat+burn+beginner+20+minutes" target="_blank">▶</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 2 -->
+  <div class="day-card" id="dc-2">
+    <div class="day-header dblue" onclick="toggleDay('dc-2')">
+      <div><div class="day-title">الاثنين — ظهر + بايسبس</div><div class="day-sub">Back + Biceps</div></div>
+      <span class="day-tag">~420 سعرة 🔥</span>
+    </div>
+    <div class="day-body">
+      <div class="ex-item">
+        <div class="ex-top"><span class="ex-name">🏗️ Lat Pulldown Machine</span><span class="ex-sets es-blue">3 × 12</span></div>
+        <div class="ex-note">اشد البار لأسفل الصدر، ظهرك مائل قليلاً للخلف</div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=lat+pulldown+machine+beginners+form" target="_blank">▶ يوتيوب</a>
+      </div>
+      <div class="ex-item">
+        <div class="ex-top"><span class="ex-name">🚣 Seated Cable Row</span><span class="ex-sets es-blue">3 × 12</span></div>
+        <div class="ex-note">اسحب للسرة، صدرك للأمام قليلاً</div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=seated+cable+row+beginners" target="_blank">▶ يوتيوب</a>
+      </div>
+      <div class="ex-item">
+        <div class="ex-top"><span class="ex-name">💪 Bicep Curl Machine</span><span class="ex-sets es-blue">3 × 12</span></div>
+        <div class="ex-note">لا تحرك الكتف، فقط اعطف المرفق</div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=bicep+curl+machine+beginners" target="_blank">▶ يوتيوب</a>
+      </div>
+      <div class="ex-item">
+        <div class="ex-top"><span class="ex-name">🔄 Face Pulls Cable</span><span class="ex-sets es-blue">3 × 15</span></div>
+        <div class="ex-note">مهم جداً لصحة الكتف للمبتدئين</div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=face+pulls+cable+beginners" target="_blank">▶ يوتيوب</a>
+      </div>
+      <div class="cardio-box">
+        <div><div class="ct">🚴 كارديو — دراجة ثابتة</div><div class="cs">20 دقيقة بمقاومة متوسطة</div></div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=stationary+bike+fat+burn+20+minutes" target="_blank">▶</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 3 Rest -->
+  <div class="day-card" id="dc-3">
+    <div class="day-header drest" onclick="toggleDay('dc-3')">
+      <div><div class="day-title">الثلاثاء — راحة نشطة</div><div class="day-sub">Active Rest</div></div>
+      <span class="day-tag">استشفاء 😴</span>
+    </div>
+    <div class="day-body">
+      <div style="text-align:center;padding:10px;color:var(--muted);font-size:0.82rem;line-height:1.7;">
+        يوم راحة نشطة — مشي خفيف 30 دقيقة أو إطالة فقط.<br>
+        <strong style="color:var(--text)">الجسم يبني العضلات ويحرق الدهون أثناء الراحة!</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 4 Legs -->
+  <div class="day-card" id="dc-4">
+    <div class="day-header dgreen" onclick="toggleDay('dc-4')">
+      <div><div class="day-title">الأربعاء — أرجل 🔥</div><div class="day-sub">أهم يوم لحرق الدهون</div></div>
+      <span class="day-tag">~500 سعرة 🔥🔥</span>
+    </div>
+    <div class="day-body">
+      <div class="ex-item">
+        <div class="ex-top"><span class="ex-name">🦵 Leg Press Machine</span><span class="ex-sets es-green">3 × 15</span></div>
+        <div class="ex-note">لا تقفل الركبة بالكامل عند الضغط</div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=leg+press+machine+beginners+form" target="_blank">▶ يوتيوب</a>
+      </div>
+      <div class="ex-item">
+        <div class="ex-top"><span class="ex-name">🦿 Leg Extension Machine</span><span class="ex-sets es-green">3 × 15</span></div>
+        <div class="ex-note">يعزز عضلة الرباعية أمام الركبة</div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=leg+extension+machine+beginners" target="_blank">▶ يوتيوب</a>
+      </div>
+      <div class="ex-item">
+        <div class="ex-top"><span class="ex-name">🔙 Leg Curl Machine</span><span class="ex-sets es-green">3 × 15</span></div>
+        <div class="ex-note">يعزز عضلات الجزء الخلفي من الفخذ</div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=leg+curl+machine+beginners" target="_blank">▶ يوتيوب</a>
+      </div>
+      <div class="ex-item">
+        <div class="ex-top"><span class="ex-name">🧘 Calf Raise Machine</span><span class="ex-sets es-green">3 × 20</span></div>
+        <div class="ex-note">ارفع ببطء ونزل ببطء — لا تتسرع</div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=calf+raise+machine+beginners" target="_blank">▶ يوتيوب</a>
+      </div>
+      <div class="cardio-box">
+        <div><div class="ct">🏃 كارديو — مشاية منحدرة</div><div class="cs">25 دقيقة، Incline 3-4</div></div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=treadmill+incline+walk+fat+burn+25+minutes" target="_blank">▶</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 5 Shoulders -->
+  <div class="day-card" id="dc-5">
+    <div class="day-header dorange" onclick="toggleDay('dc-5')">
+      <div><div class="day-title">الخميس — أكتاف + بطن</div><div class="day-sub">Shoulders + Abs</div></div>
+      <span class="day-tag">~380 سعرة 🔥</span>
+    </div>
+    <div class="day-body">
+      <div class="ex-item">
+        <div class="ex-top"><span class="ex-name">🏋️ Shoulder Press Machine</span><span class="ex-sets es-orange">3 × 12</span></div>
+        <div class="ex-note">ارفع بدون تقوس الظهر للخلف</div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=shoulder+press+machine+beginners" target="_blank">▶ يوتيوب</a>
+      </div>
+      <div class="ex-item">
+        <div class="ex-top"><span class="ex-name">↔️ Lateral Raise Dumbbell</span><span class="ex-sets es-orange">3 × 15</span></div>
+        <div class="ex-note">ارفع للجانب حتى مستوى الكتف فقط</div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=lateral+raise+beginners+dumbbell" target="_blank">▶ يوتيوب</a>
+      </div>
+      <div class="ex-item">
+        <div class="ex-top"><span class="ex-name">🔄 Ab Crunch Machine</span><span class="ex-sets es-orange">3 × 20</span></div>
+        <div class="ex-note">تمرين البطن على الجهاز — آمن للمبتدئين</div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=ab+crunch+machine+beginners" target="_blank">▶ يوتيوب</a>
+      </div>
+      <div class="ex-item">
+        <div class="ex-top"><span class="ex-name">🪝 Cable Woodchop</span><span class="ex-sets es-orange">3 × 15</span></div>
+        <div class="ex-note">يستهدف البطن الجانبي — حركة قطرية</div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=cable+woodchop+beginners+abs" target="_blank">▶ يوتيوب</a>
+      </div>
+      <div class="cardio-box">
+        <div><div class="ct">🚴 كارديو — دراجة ثابتة</div><div class="cs">20 دقيقة</div></div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=stationary+bike+beginner+cardio+20+min" target="_blank">▶</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 6 Rest -->
+  <div class="day-card" id="dc-6">
+    <div class="day-header drest" onclick="toggleDay('dc-6')">
+      <div><div class="day-title">الجمعة — راحة كاملة</div><div class="day-sub">Full Rest Day</div></div>
+      <span class="day-tag">يوم راحة 🌙</span>
+    </div>
+    <div class="day-body">
+      <div style="text-align:center;padding:10px;color:var(--muted);font-size:0.82rem;line-height:1.7;">
+        راحة كاملة — نوم 7-8 ساعات وشرب ماء كافٍ.<br>
+        <strong style="color:var(--text)">التعافي جزء أساسي من التمرين!</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 7 Full Body -->
+  <div class="day-card" id="dc-7">
+    <div class="day-header dpurple" onclick="toggleDay('dc-7')">
+      <div><div class="day-title">السبت — جسم كامل خفيف</div><div class="day-sub">نفس الأجهزة بوزن أخف</div></div>
+      <span class="day-tag">~450 سعرة 🔥</span>
+    </div>
+    <div class="day-body">
+      <div class="ex-item"><div class="ex-top"><span class="ex-name">🏋️ Chest Press Machine</span><span class="ex-sets es-purple">2 × 15</span></div><div class="ex-note">وزن أخف بـ 20% من يوم الأحد</div></div>
+      <div class="ex-item"><div class="ex-top"><span class="ex-name">🏗️ Lat Pulldown Machine</span><span class="ex-sets es-purple">2 × 15</span></div><div class="ex-note">وزن أخف من يوم الاثنين</div></div>
+      <div class="ex-item"><div class="ex-top"><span class="ex-name">🦵 Leg Press Machine</span><span class="ex-sets es-purple">2 × 15</span></div><div class="ex-note">الأرجل = أكبر عضلة = أكثر حرق</div></div>
+      <div class="ex-item"><div class="ex-top"><span class="ex-name">🏋️ Shoulder Press Machine</span><span class="ex-sets es-purple">2 × 15</span></div><div class="ex-note">وزن أخف من يوم الخميس</div></div>
+      <div class="ex-item"><div class="ex-top"><span class="ex-name">🔄 Ab Crunch Machine</span><span class="ex-sets es-purple">2 × 20</span></div><div class="ex-note">أنهِ الجلسة بتمرين البطن</div></div>
+      <div class="cardio-box">
+        <div><div class="ct">🏃 HIIT على المشاية</div><div class="cs">20 دقيقة: دقيقة سريع + دقيقة عادي × 10</div></div>
+        <a class="yt-btn" href="https://www.youtube.com/results?search_query=treadmill+HIIT+beginner+20+minutes+fat+burn" target="_blank">▶</a>
+      </div>
+    </div>
+  </div>
+  </div><!-- end workout-gym -->
+
+  <!-- HOME WORKOUTS -->
+  <div id="workout-home" style="display:none;">
+    <div style="background:linear-gradient(135deg,#0a1a0a,#1a3520);border-radius:16px;padding:14px 16px;margin-bottom:14px;border:1px solid #2a5030;">
+      <div style="font-size:0.88rem;font-weight:800;color:var(--green);margin-bottom:4px;">🏠 تمارين البيت — للمبتدئين</div>
+      <div style="font-size:0.75rem;color:var(--muted);">سهلة وبسيطة · بوزن جسمك فقط · ~30-40 دقيقة</div>
+    </div>
+
+    <!-- Home Day 1 -->
+    <div class="day-card" id="hdc-1">
+      <div class="day-header dred" onclick="toggleDay('hdc-1')">
+        <div><div class="day-title">الأحد — صدر + ذراعين 🏠</div><div class="day-sub">تمارين الجزء العلوي</div></div>
+        <span class="day-tag">~250 سعرة 🔥</span>
+      </div>
+      <div class="day-body">
+        <div class="ex-item">
+          <div class="ex-top"><span class="ex-name">💪 ضغط على الركب (Knee Push Up)</span><span class="ex-sets es-red">3 × 10</span></div>
+          <div class="ex-note">نفس الضغط العادي لكن ركبتيك على الأرض — أسهل بكثير للمبتدئين</div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=knee+push+ups+beginners+easy" target="_blank">▶ يوتيوب</a>
+        </div>
+        <div class="ex-item">
+          <div class="ex-top"><span class="ex-name">🪑 ضغط على الحائط (Wall Push Up)</span><span class="ex-sets es-red">3 × 15</span></div>
+          <div class="ex-note">قف أمام الحائط وادفع جسمك — أسهل تمرين للصدر</div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=wall+push+ups+beginners+easy" target="_blank">▶ يوتيوب</a>
+        </div>
+        <div class="ex-item">
+          <div class="ex-top"><span class="ex-name">🪑 Tricep Dips على كرسي</span><span class="ex-sets es-red">3 × 10</span></div>
+          <div class="ex-note">يدك على حافة كرسي، انزل جسمك ببطء وارجع — بسيط جداً</div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=tricep+dips+chair+easy+beginners" target="_blank">▶ يوتيوب</a>
+        </div>
+        <div class="cardio-box">
+          <div><div class="ct">🚶 مشي مكانك</div><div class="cs">15 دقيقة مشي سريع في البيت أو المشوار القريب</div></div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=walking+in+place+beginners+15+minutes" target="_blank">▶</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Home Day 2 -->
+    <div class="day-card" id="hdc-2">
+      <div class="day-header dblue" onclick="toggleDay('hdc-2')">
+        <div><div class="day-title">الاثنين — ظهر + بطن 🏠</div><div class="day-sub">تمارين الجزء الأوسط</div></div>
+        <span class="day-tag">~220 سعرة 🔥</span>
+      </div>
+      <div class="day-body">
+        <div class="ex-item">
+          <div class="ex-top"><span class="ex-name">🏊 Superman</span><span class="ex-sets es-blue">3 × 12</span></div>
+          <div class="ex-note">استلقِ على بطنك، ارفع يديك وقدميك معاً 2 ثانية ثم نزّل — يقوي الظهر</div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=superman+exercise+beginners+back" target="_blank">▶ يوتيوب</a>
+        </div>
+        <div class="ex-item">
+          <div class="ex-top"><span class="ex-name">🧘 Bird Dog</span><span class="ex-sets es-blue">3 × 10</span></div>
+          <div class="ex-note">على يديك وركبتيك، ارفع يد وقدم معاً — ثبّت 3 ثواني</div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=bird+dog+exercise+beginners+easy" target="_blank">▶ يوتيوب</a>
+        </div>
+        <div class="ex-item">
+          <div class="ex-top"><span class="ex-name">🔄 Crunches (بطن)</span><span class="ex-sets es-blue">3 × 15</span></div>
+          <div class="ex-note">استلقِ على ظهرك، ارفع كتفيك فقط عن الأرض — لا ترفع ظهرك كله</div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=crunches+beginners+easy+abs" target="_blank">▶ يوتيوب</a>
+        </div>
+        <div class="cardio-box">
+          <div><div class="ct">🚶 مشي مكانك</div><div class="cs">15 دقيقة مشي سريع</div></div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=walking+in+place+beginners+15+minutes" target="_blank">▶</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Home Day 3 Rest -->
+    <div class="day-card" id="hdc-3">
+      <div class="day-header drest" onclick="toggleDay('hdc-3')">
+        <div><div class="day-title">الثلاثاء — راحة 🏠</div><div class="day-sub">نفس يوم النادي</div></div>
+        <span class="day-tag">استشفاء 😴</span>
+      </div>
+      <div class="day-body">
+        <div style="text-align:center;padding:10px;color:var(--muted);font-size:0.82rem;line-height:1.7;">
+          يوم راحة — تمشية خفيفة 20 دقيقة إذا تبي 🚶
+        </div>
+      </div>
+    </div>
+
+    <!-- Home Day 4 Legs -->
+    <div class="day-card" id="hdc-4">
+      <div class="day-header dgreen" onclick="toggleDay('hdc-4')">
+        <div><div class="day-title">الأربعاء — أرجل 🏠 🔥</div><div class="day-sub">أقوى يوم لحرق الدهون</div></div>
+        <span class="day-tag">~300 سعرة 🔥🔥</span>
+      </div>
+      <div class="day-body">
+        <div class="ex-item">
+          <div class="ex-top"><span class="ex-name">🦵 Squats (جلوس وقيام)</span><span class="ex-sets es-green">4 × 15</span></div>
+          <div class="ex-note">قف بعرض الكتف، انزل كأنك تجلس على كرسي، ظهرك مستقيم</div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=squats+beginners+easy+form" target="_blank">▶ يوتيوب</a>
+        </div>
+        <div class="ex-item">
+          <div class="ex-top"><span class="ex-name">🦿 Wall Sit (جلوس الحائط)</span><span class="ex-sets es-green">3 × 20 ثانية</span></div>
+          <div class="ex-note">استند على الحائط وانزل حتى تصير ركبتك 90 درجة — ثبّت</div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=wall+sit+beginners+easy" target="_blank">▶ يوتيوب</a>
+        </div>
+        <div class="ex-item">
+          <div class="ex-top"><span class="ex-name">🧘 Glute Bridge (رفع الأرداف)</span><span class="ex-sets es-green">3 × 15</span></div>
+          <div class="ex-note">استلقِ على ظهرك، ركبتيك مثنية، ارفع وركك للأعلى وثبّت</div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=glute+bridge+beginners+easy" target="_blank">▶ يوتيوب</a>
+        </div>
+        <div class="ex-item">
+          <div class="ex-top"><span class="ex-name">🦶 Calf Raises (رفع الأصابع)</span><span class="ex-sets es-green">3 × 20</span></div>
+          <div class="ex-note">قف وارفع على أطراف أصابعك ببطء — تقدر تمسك الحائط للتوازن</div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=calf+raises+standing+beginners" target="_blank">▶ يوتيوب</a>
+        </div>
+        <div class="cardio-box">
+          <div><div class="ct">🚶 مشي سريع</div><div class="cs">20 دقيقة مشي سريع بالحي</div></div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=brisk+walking+fat+burn+20+minutes" target="_blank">▶</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Home Day 5 Shoulders -->
+    <div class="day-card" id="hdc-5">
+      <div class="day-header dorange" onclick="toggleDay('hdc-5')">
+        <div><div class="day-title">الخميس — أكتاف + بطن 🏠</div><div class="day-sub">تمارين خفيفة</div></div>
+        <span class="day-tag">~230 سعرة 🔥</span>
+      </div>
+      <div class="day-body">
+        <div class="ex-item">
+          <div class="ex-top"><span class="ex-name">🔄 Arm Circles (دوران الذراع)</span><span class="ex-sets es-orange">3 × 20</span></div>
+          <div class="ex-note">مد ذراعيك وحرّكهم دوائر للأمام والخلف — يسخّن الكتف ويقويه</div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=arm+circles+shoulder+exercise+beginners" target="_blank">▶ يوتيوب</a>
+        </div>
+        <div class="ex-item">
+          <div class="ex-top"><span class="ex-name">⬆️ Pike Push Up (ضغط V)</span><span class="ex-sets es-orange">3 × 8</span></div>
+          <div class="ex-note">جسمك بشكل V مقلوب، انزل رأسك للأرض ببطء — يستهدف الكتف</div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=pike+push+up+beginners+easy+shoulders" target="_blank">▶ يوتيوب</a>
+        </div>
+        <div class="ex-item">
+          <div class="ex-top"><span class="ex-name">🔄 Crunches (بطن)</span><span class="ex-sets es-orange">3 × 20</span></div>
+          <div class="ex-note">ارفع كتفيك فقط عن الأرض — ببطء مع التنفس</div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=crunches+beginners+easy+abs" target="_blank">▶ يوتيوب</a>
+        </div>
+        <div class="cardio-box">
+          <div><div class="ct">🚶 مشي مكانك</div><div class="cs">15 دقيقة</div></div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=walking+in+place+beginners+15+minutes" target="_blank">▶</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Home Day 6 Rest -->
+    <div class="day-card" id="hdc-6">
+      <div class="day-header drest" onclick="toggleDay('hdc-6')">
+        <div><div class="day-title">الجمعة — راحة كاملة 🏠</div><div class="day-sub">استرح وكمل غداً</div></div>
+        <span class="day-tag">يوم راحة 🌙</span>
+      </div>
+      <div class="day-body">
+        <div style="text-align:center;padding:10px;color:var(--muted);font-size:0.82rem;">راحة كاملة 😴</div>
+      </div>
+    </div>
+
+    <!-- Home Day 7 Full Body -->
+    <div class="day-card" id="hdc-7">
+      <div class="day-header dpurple" onclick="toggleDay('hdc-7')">
+        <div><div class="day-title">السبت — جسم كامل خفيف 🏠</div><div class="day-sub">تمرين بسيط شامل</div></div>
+        <span class="day-tag">~280 سعرة 🔥</span>
+      </div>
+      <div class="day-body">
+        <div class="ex-item"><div class="ex-top"><span class="ex-name">💪 ضغط على الحائط</span><span class="ex-sets es-purple">2 × 15</span></div><div class="ex-note">تمرين الصدر السهل</div></div>
+        <div class="ex-item"><div class="ex-top"><span class="ex-name">🦵 Squats</span><span class="ex-sets es-purple">2 × 15</span></div><div class="ex-note">جلوس وقيام — أهم تمرين للجسم كله</div></div>
+        <div class="ex-item"><div class="ex-top"><span class="ex-name">🏊 Superman</span><span class="ex-sets es-purple">2 × 12</span></div><div class="ex-note">تقوية الظهر</div></div>
+        <div class="ex-item"><div class="ex-top"><span class="ex-name">🔄 Crunches</span><span class="ex-sets es-purple">2 × 15</span></div><div class="ex-note">تمرين البطن</div></div>
+        <div class="cardio-box">
+          <div><div class="ct">🚶 مشي سريع</div><div class="cs">20 دقيقة بالحي أو مكانك</div></div>
+          <a class="yt-btn" href="https://www.youtube.com/results?search_query=brisk+walking+fat+burn+beginners" target="_blank">▶</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end workout-home -->
+</div>
+
+<!-- ===== WEIGHT TRACKER SCREEN ===== -->
+<div class="screen" id="screen-weight">
+  <div class="weight-header-card">
+    <div class="weight-big">
+      <div>
+        <span class="current" id="currentWeightDisplay">93.9</span>
+        <span class="unit"> كغ</span>
+      </div>
+      <div class="target">🎯 الهدف: 72.3 كغ</div>
+      <div class="diff over" id="weightDiff">فرق: +21.6 كغ عن الهدف</div>
+    </div>
+    <div class="add-weight-form">
+      <input class="weight-input" type="number" id="weightInput" placeholder="93.9" step="0.1" min="50" max="200">
+      <button class="add-weight-btn" onclick="addWeight()">سجّل ⚖️</button>
+    </div>
+  </div>
+
+  <div class="weight-chart-wrap">
+    <div class="chart-title">📈 منحنى الوزن</div>
+    <canvas id="weightChart"></canvas>
+  </div>
+
+  <div class="weight-log">
+    <div class="log-header">
+      <span>📋 سجل الوزن</span>
+      <button class="clear-btn" onclick="clearWeights()">مسح الكل</button>
+    </div>
+    <div id="weightLogList">
+      <div class="log-empty">لا يوجد سجلات بعد — سجّل وزنك اليوم! 💪</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== REMINDERS SCREEN ===== -->
+<div class="screen" id="screen-reminders">
+  <div class="info-card">
+    ℹ️ فعّل التذكيرات وستصلك إشعارات في الوقت المحدد — تأكد من السماح للمتصفح بإرسال الإشعارات عند الطلب.
+  </div>
+
+  <div class="section-title"><span class="dot"></span> تذكير الوجبات</div>
+
+  <div class="reminder-card">
+    <div class="reminder-icon ic-green">🌅</div>
+    <div class="reminder-info">
+      <h4>الفطور</h4>
+      <p>الساعة 8:00 صباحاً</p>
+    </div>
+    <label class="toggle-switch">
+      <input type="checkbox" id="rem-breakfast" onchange="scheduleReminder('breakfast', 8, 0, this.checked)">
+      <span class="toggle-slider"></span>
+    </label>
+  </div>
+
+  <div class="reminder-card">
+    <div class="reminder-icon ic-orange">🍽️</div>
+    <div class="reminder-info">
+      <h4>الغداء</h4>
+      <p>الساعة 1:00 ظهراً</p>
+    </div>
+    <label class="toggle-switch">
+      <input type="checkbox" id="rem-lunch" onchange="scheduleReminder('lunch', 13, 0, this.checked)">
+      <span class="toggle-slider"></span>
+    </label>
+  </div>
+
+  <div class="reminder-card">
+    <div class="reminder-icon ic-blue">🌙</div>
+    <div class="reminder-info">
+      <h4>العشاء</h4>
+      <p>الساعة 7:00 مساءً</p>
+    </div>
+    <label class="toggle-switch">
+      <input type="checkbox" id="rem-dinner" onchange="scheduleReminder('dinner', 19, 0, this.checked)">
+      <span class="toggle-slider"></span>
+    </label>
+  </div>
+
+  <div class="reminder-card">
+    <div class="reminder-icon ic-red">🏋️</div>
+    <div class="reminder-info">
+      <h4>تذكير التمرين</h4>
+      <p>الساعة 5:00 مساءً</p>
+    </div>
+    <label class="toggle-switch">
+      <input type="checkbox" id="rem-workout" onchange="scheduleReminder('workout', 17, 0, this.checked)">
+      <span class="toggle-slider"></span>
+    </label>
+  </div>
+
+  <div class="reminder-card">
+    <div class="reminder-icon ic-blue">💧</div>
+    <div class="reminder-info">
+      <h4>تذكير شرب الماء</h4>
+      <p>كل ساعتين من 9ص إلى 9م</p>
+    </div>
+    <label class="toggle-switch">
+      <input type="checkbox" id="rem-water" onchange="scheduleWaterReminders(this.checked)">
+      <span class="toggle-slider"></span>
+    </label>
+  </div>
+
+  <div class="reminder-card">
+    <div class="reminder-icon ic-green">⚖️</div>
+    <div class="reminder-info">
+      <h4>قياس الوزن الأسبوعي</h4>
+      <p>كل أحد الساعة 8:00 صباحاً</p>
+    </div>
+    <label class="toggle-switch">
+      <input type="checkbox" id="rem-weigh" onchange="scheduleReminder('weigh', 8, 0, this.checked, true)">
+      <span class="toggle-slider"></span>
+    </label>
+  </div>
+
+  <div style="margin-top:16px;background:var(--card);border-radius:14px;padding:14px 16px;border:1px solid var(--border);">
+    <div style="font-size:0.82rem;font-weight:800;margin-bottom:10px;">📲 كيف تضيف التطبيق لشاشتك الرئيسية؟</div>
+    <div style="font-size:0.78rem;color:var(--muted);line-height:1.8;">
+      <strong style="color:var(--text)">iPhone:</strong> Safari ← زر المشاركة ← "Add to Home Screen"<br>
+      <strong style="color:var(--text)">Android:</strong> Chrome ← القائمة (⋮) ← "Add to Home Screen"
+    </div>
+  </div>
+</div>
+
+<!-- ===== CALORIE TRACKER SCREEN ===== -->
+<div class="screen" id="screen-calories">
+
+  <!-- Ring Summary -->
+  <div style="background:var(--card);border-radius:20px;padding:18px;margin-bottom:14px;border:1px solid var(--border);">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div style="position:relative;width:90px;height:90px;flex-shrink:0;">
+        <svg width="90" height="90" viewBox="0 0 90 90" style="transform:rotate(-90deg)">
+          <circle cx="45" cy="45" r="38" fill="none" stroke="#2a3650" stroke-width="8"/>
+          <circle id="cal-ring-fill" cx="45" cy="45" r="38" fill="none" stroke="#00d084" stroke-width="8"
+            stroke-dasharray="238.76" stroke-dashoffset="0" stroke-linecap="round"/>
+        </svg>
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;">
+          <span id="cal-remaining" style="font-size:0.95rem;font-weight:900;color:var(--green);display:block;">2,350</span>
+          <span style="font-size:0.58rem;color:var(--muted);">متبقي</span>
+        </div>
+      </div>
+      <div style="flex:1;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="background:var(--bg);border-radius:10px;padding:8px;text-align:center;border:1px solid var(--border);">
+            <div id="cal-consumed" style="font-size:1rem;font-weight:900;color:var(--orange);">0</div>
+            <div style="font-size:0.65rem;color:var(--muted);">مستهلك</div>
+          </div>
+          <div style="background:var(--bg);border-radius:10px;padding:8px;text-align:center;border:1px solid var(--border);">
+            <div style="font-size:1rem;font-weight:900;color:var(--blue);">2,350</div>
+            <div style="font-size:0.65rem;color:var(--muted);">الهدف</div>
+          </div>
+        </div>
+        <div id="cal-status-bar" style="margin-top:8px;height:6px;background:var(--border);border-radius:3px;overflow:hidden;">
+          <div id="cal-bar-fill" style="height:100%;width:0%;background:var(--green);border-radius:3px;transition:width 0.4s;"></div>
+        </div>
+        <div id="cal-status-text" style="font-size:0.7rem;color:var(--muted);margin-top:4px;text-align:center;">ابدأ بتسجيل وجباتك 🍽️</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Add -->
+  <div style="background:var(--card);border-radius:16px;padding:14px;margin-bottom:12px;border:1px solid var(--border);">
+    <div style="font-size:0.85rem;font-weight:800;margin-bottom:10px;">➕ أضف سعرات</div>
+
+    <!-- Manual input -->
+    <div style="display:flex;gap:8px;margin-bottom:10px;">
+      <input id="cal-food-name" type="text" placeholder="اسم الأكل (اختياري)" style="flex:1.5;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-family:'Cairo',sans-serif;font-size:0.82rem;color:var(--text);direction:rtl;">
+      <input id="cal-food-amount" type="number" placeholder="سعرة" style="flex:1;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-family:'Cairo',sans-serif;font-size:0.88rem;font-weight:700;color:var(--text);text-align:center;direction:ltr;" min="1" max="5000">
+      <button onclick="addCalories()" style="background:var(--green);color:#000;border:none;border-radius:10px;padding:9px 14px;font-family:'Cairo',sans-serif;font-size:0.85rem;font-weight:800;cursor:pointer;white-space:nowrap;">أضف</button>
+    </div>
+
+    <!-- Quick chips for Ahmed's meals -->
+    <div style="font-size:0.72rem;color:var(--muted);margin-bottom:7px;font-weight:700;">⚡ وجباتك السريعة — اضغط لإضافة مباشرة:</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;">
+      <button class="quick-chip" onclick="quickAdd('الفطور الثابت', 470)">🍞 فطور ثابت +470</button>
+      <button class="quick-chip" onclick="quickAdd('بيضة', 80)">🥚 بيضة +80</button>
+      <button class="quick-chip" onclick="quickAdd('زبادي يوناني', 80)">🫙 زبادي +80</button>
+      <button class="quick-chip" onclick="quickAdd('دجاج + رز', 860)">🍗🍚 دجاج+رز +860</button>
+      <button class="quick-chip" onclick="quickAdd('دجاج + بطاطس', 800)">🍗🍟 دجاج+بطاطس +800</button>
+      <button class="quick-chip" onclick="quickAdd('دجاج + خبز', 660)">🍗🫓 دجاج+خبز +660</button>
+      <button class="quick-chip" onclick="quickAdd('لحم + رز', 860)">🥩🍚 لحم+رز +860</button>
+      <button class="quick-chip" onclick="quickAdd('لحم + بطاطس', 800)">🥩🍟 لحم+بطاطس +800</button>
+      <button class="quick-chip" onclick="quickAdd('لحم + خبز', 660)">🥩🫓 لحم+خبز +660</button>
+      <button class="quick-chip" onclick="quickAdd('شاورما دجاج توست', 750)">🌯 شاورما +750</button>
+      <button class="quick-chip" onclick="quickAdd('توست لحم مفروم', 780)">🍞 توست لحم +780</button>
+      <button class="quick-chip" onclick="quickAdd('لحم وبطاطس جبن', 800)">🥩🍟 لحم+بطاطس+جبن +800</button>
+      <button class="quick-chip" onclick="quickAdd('دجاج الأريم+بطاطس', 800)">🌶️🍟 أريم+بطاطس +800</button>
+      <button class="quick-chip" onclick="quickAdd('ستيك لحم', 780)">🥩 ستيك +780</button>
+    </div>
+  </div>
+
+  <!-- Today's Log -->
+  <div style="background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--border);">
+    <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-size:0.85rem;font-weight:800;">📋 سجل اليوم</span>
+      <button onclick="clearCalories()" style="background:var(--red-dim);color:var(--red);border:none;border-radius:8px;padding:4px 10px;font-size:0.7rem;font-weight:700;font-family:'Cairo',sans-serif;cursor:pointer;">مسح اليوم</button>
+    </div>
+    <div id="cal-log-list">
+      <div style="padding:20px;text-align:center;color:var(--muted);font-size:0.82rem;">لا يوجد سجلات اليوم — أضف وجبتك! 🍽️</div>
+    </div>
+  </div>
+</div>
+
+<style>
+.quick-chip {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.quick-chip:active { background: var(--green-dim); border-color: var(--green); color: var(--green); transform: scale(0.96); }
+</style>
+
+<script>
+// ===== NAVIGATION =====
+function showScreen(name, btn) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ===== MEALS TABS =====
+function showMealTab(name, btn) {
+  document.querySelectorAll('.meals-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.meal-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('mpanel-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ===== TOGGLE CARDS =====
+function toggleMeal(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+function toggleDay(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+// ===== HOME GREETING =====
+function updateGreeting() {
+  const days = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  const months = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  const now = new Date();
+  const h = now.getHours();
+  let greeting = h < 12 ? 'صباح الخير' : h < 17 ? 'مساء الخير' : 'مساء النور';
+  document.getElementById('greetingText').textContent = `${greeting} أحمد! 👋`;
+  document.getElementById('greetingDate').textContent = `${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]}`;
+
+  const workouts = [
+    { name: '🏋️ صدر + ترايسبس', sub: 'Chest Press, Pec Deck, Tricep Pushdown', badge: '~400 سعرة' },
+    { name: '🏗️ ظهر + بايسبس', sub: 'Lat Pulldown, Cable Row, Bicep Curl', badge: '~420 سعرة' },
+    { name: '😴 راحة نشطة', sub: 'مشي خفيف أو إطالة فقط', badge: 'استشفاء' },
+    { name: '🦵 أرجل 🔥', sub: 'Leg Press, Extension, Curl, Calf Raise', badge: '~500 سعرة' },
+    { name: '💪 أكتاف + بطن', sub: 'Shoulder Press, Lateral Raise, Crunch', badge: '~380 سعرة' },
+    { name: '🌙 راحة كاملة', sub: 'نوم جيد وشرب ماء', badge: 'يوم راحة' },
+    { name: '🔄 جسم كامل خفيف', sub: 'نفس الأجهزة + HIIT كارديو', badge: '~450 سعرة' },
+  ];
+  const today = workouts[now.getDay()];
+  document.getElementById('todayWorkoutName').textContent = today.name;
+  document.getElementById('todayWorkoutSub').textContent = today.sub;
+  document.getElementById('todayWorkoutBadge').textContent = today.badge;
+}
+
+// ===== WEIGHT TRACKER =====
+function getWeights() {
+  try { return JSON.parse(localStorage.getItem('ahmed_weights') || '[]'); } catch(e) { return []; }
+}
+function saveWeights(w) {
+  try { localStorage.setItem('ahmed_weights', JSON.stringify(w)); } catch(e) {}
+}
+
+function addWeight() {
+  const val = parseFloat(document.getElementById('weightInput').value);
+  if (!val || val < 30 || val > 300) { alert('أدخل وزناً صحيحاً!'); return; }
+  const weights = getWeights();
+  const today = new Date().toLocaleDateString('ar-SA');
+  weights.unshift({ date: today, val, ts: Date.now() });
+  if (weights.length > 30) weights.pop();
+  saveWeights(weights);
+  document.getElementById('weightInput').value = '';
+  renderWeights();
+}
+
+function clearWeights() {
+  if (confirm('هل تريد مسح كل سجلات الوزن؟')) {
+    saveWeights([]);
+    renderWeights();
+  }
+}
+
+function renderWeights() {
+  const weights = getWeights();
+  const target = 72.3;
+
+  // Update current display
+  if (weights.length > 0) {
+    const current = weights[0].val;
+    document.getElementById('currentWeightDisplay').textContent = current.toFixed(1);
+    document.getElementById('currentWeightHeader').textContent = current.toFixed(1);
+    const diff = current - target;
+    const diffEl = document.getElementById('weightDiff');
+    diffEl.textContent = diff > 0 ? `فرق: +${diff.toFixed(1)} كغ عن الهدف` : `🎉 وصلت للهدف!`;
+    diffEl.className = 'diff ' + (diff > 0 ? 'over' : 'down');
+    document.getElementById('daysToGoal').textContent = diff.toFixed(1);
+  }
+
+  // Render chart
+  const canvas = document.getElementById('weightChart');
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth * window.devicePixelRatio || 300;
+  canvas.height = 160 * (window.devicePixelRatio || 1);
+  ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+  const W = canvas.offsetWidth || 300, H = 160;
+  ctx.clearRect(0, 0, W, H);
+
+  if (weights.length < 2) {
+    ctx.fillStyle = '#6b7a99';
+    ctx.font = '13px Cairo';
+    ctx.textAlign = 'center';
+    ctx.fillText('سجّل وزنك مرتين على الأقل لرؤية المنحنى', W/2, H/2);
+    renderLog(weights);
+    return;
+  }
+
+  const vals = weights.map(w => w.val).reverse();
+  const dates = weights.map(w => w.date).reverse();
+  const minV = Math.min(...vals, target) - 1;
+  const maxV = Math.max(...vals) + 1;
+  const pad = { t:16, r:16, b:28, l:36 };
+  const cW = W - pad.l - pad.r, cH = H - pad.t - pad.b;
+
+  const toX = i => pad.l + (i / (vals.length-1)) * cW;
+  const toY = v => pad.t + (1 - (v - minV) / (maxV - minV)) * cH;
+
+  // Grid
+  ctx.strokeStyle = '#2a3650'; ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = pad.t + (i/4)*cH;
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l+cW, y); ctx.stroke();
+  }
+
+  // Target line
+  const ty = toY(target);
+  ctx.strokeStyle = '#00d08455'; ctx.lineWidth = 1; ctx.setLineDash([4,4]);
+  ctx.beginPath(); ctx.moveTo(pad.l, ty); ctx.lineTo(pad.l+cW, ty); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#00d084'; ctx.font = '10px Cairo'; ctx.textAlign = 'right';
+  ctx.fillText('هدف', pad.l-2, ty+4);
+
+  // Fill
+  const grad = ctx.createLinearGradient(0, pad.t, 0, pad.t+cH);
+  grad.addColorStop(0, '#00d08444'); grad.addColorStop(1, '#00d08400');
+  ctx.beginPath(); ctx.moveTo(toX(0), toY(vals[0]));
+  vals.forEach((v,i) => ctx.lineTo(toX(i), toY(v)));
+  ctx.lineTo(toX(vals.length-1), pad.t+cH); ctx.lineTo(toX(0), pad.t+cH);
+  ctx.closePath(); ctx.fillStyle = grad; ctx.fill();
+
+  // Line
+  ctx.strokeStyle = '#00d084'; ctx.lineWidth = 2.5; ctx.lineJoin = 'round';
+  ctx.beginPath(); ctx.moveTo(toX(0), toY(vals[0]));
+  vals.forEach((v,i) => ctx.lineTo(toX(i), toY(v)));
+  ctx.stroke();
+
+  // Dots
+  vals.forEach((v,i) => {
+    ctx.beginPath(); ctx.arc(toX(i), toY(v), 4, 0, Math.PI*2);
+    ctx.fillStyle = '#00d084'; ctx.fill();
+    ctx.strokeStyle = '#0a0f1a'; ctx.lineWidth = 2; ctx.stroke();
+  });
+
+  // Labels
+  ctx.fillStyle = '#6b7a99'; ctx.font = '10px Cairo'; ctx.textAlign = 'center';
+  const step = Math.ceil(vals.length / 5);
+  vals.forEach((v,i) => {
+    if (i % step === 0 || i === vals.length-1) {
+      ctx.fillText(dates[i].slice(0,5), toX(i), H-4);
+    }
+  });
+  ctx.textAlign = 'right';
+  vals.forEach((v,i) => {
+    if (i % step === 0) ctx.fillText(v, pad.l-4, toY(v)+4);
+  });
+
+  renderLog(weights);
+}
+
+function renderLog(weights) {
+  const el = document.getElementById('weightLogList');
+  if (!weights.length) {
+    el.innerHTML = '<div class="log-empty">لا يوجد سجلات بعد — سجّل وزنك اليوم! 💪</div>';
+    return;
+  }
+  el.innerHTML = weights.map((w, i) => {
+    const prev = weights[i+1];
+    let diffHtml = '';
+    if (prev) {
+      const d = w.val - prev.val;
+      diffHtml = `<span class="log-diff ${d > 0 ? 'up' : 'down'}">${d > 0 ? '▲' : '▼'} ${Math.abs(d).toFixed(1)} كغ</span>`;
+    }
+    return `<div class="log-item"><span class="log-date">${w.date}</span>${diffHtml}<span class="log-val">${w.val.toFixed(1)} كغ</span></div>`;
+  }).join('');
+}
+
+// ===== REMINDERS =====
+function scheduleReminder(name, h, m, enabled) {
+  if (!enabled) return;
+  if (!('Notification' in window)) { alert('المتصفح لا يدعم الإشعارات'); return; }
+  Notification.requestPermission().then(perm => {
+    if (perm === 'granted') {
+      const now = new Date();
+      const next = new Date();
+      next.setHours(h, m, 0, 0);
+      if (next <= now) next.setDate(next.getDate() + 1);
+      const ms = next - now;
+      const labels = { breakfast:'🌅 وقت الفطور!', lunch:'🍽️ وقت الغداء!', dinner:'🌙 وقت العشاء!', workout:'🏋️ وقت التمرين!', weigh:'⚖️ سجّل وزنك اليوم!' };
+      setTimeout(() => new Notification('خطة أحمد 💪', { body: labels[name] || name, icon: '' }), ms);
+    } else {
+      alert('يرجى السماح بالإشعارات من إعدادات المتصفح');
+    }
+  });
+}
+
+function scheduleWaterReminders(enabled) {
+  if (!enabled) return;
+  if (!('Notification' in window)) return;
+  Notification.requestPermission().then(perm => {
+    if (perm === 'granted') {
+      for (let h = 9; h <= 21; h += 2) {
+        const now = new Date(), next = new Date();
+        next.setHours(h, 0, 0, 0);
+        if (next > now) setTimeout(() => new Notification('خطة أحمد 💧', { body: 'اشرب كوب ماء الآن!' }), next - now);
+      }
+    }
+  });
+}
+
+// ===== WORKOUT TOGGLE =====
+function switchWorkout(mode) {
+  const gym = document.getElementById('workout-gym');
+  const home = document.getElementById('workout-home');
+  const btnGym = document.getElementById('btn-gym');
+  const btnHome = document.getElementById('btn-home');
+  if (mode === 'gym') {
+    gym.style.display = 'block';
+    home.style.display = 'none';
+    btnGym.style.background = 'var(--red)';
+    btnGym.style.color = '#fff';
+    btnGym.style.border = 'none';
+    btnHome.style.background = 'var(--card)';
+    btnHome.style.color = 'var(--muted)';
+    btnHome.style.border = '2px solid var(--border)';
+  } else {
+    gym.style.display = 'none';
+    home.style.display = 'block';
+    btnHome.style.background = 'var(--green)';
+    btnHome.style.color = '#000';
+    btnHome.style.border = 'none';
+    btnGym.style.background = 'var(--card)';
+    btnGym.style.color = 'var(--muted)';
+    btnGym.style.border = '2px solid var(--border)';
+  }
+}
+
+// ===== CALORIE TRACKER =====
+const DAILY_GOAL = 2350;
+
+function getCalLog() {
+  try {
+    const today = new Date().toDateString();
+    const data = JSON.parse(localStorage.getItem('ahmed_cal_log') || '{}');
+    if (data.date !== today) return { date: today, items: [] };
+    return data;
+  } catch(e) { return { date: new Date().toDateString(), items: [] }; }
+}
+function saveCalLog(log) {
+  try { localStorage.setItem('ahmed_cal_log', JSON.stringify(log)); } catch(e) {}
+}
+
+function addCalories() {
+  const name = document.getElementById('cal-food-name').value.trim() || 'وجبة';
+  const amount = parseInt(document.getElementById('cal-food-amount').value);
+  if (!amount || amount < 1) { alert('أدخل عدد السعرات!'); return; }
+  const log = getCalLog();
+  log.items.push({ name, kcal: amount, time: new Date().toLocaleTimeString('ar-SA', {hour:'2-digit',minute:'2-digit'}) });
+  saveCalLog(log);
+  document.getElementById('cal-food-name').value = '';
+  document.getElementById('cal-food-amount').value = '';
+  renderCalTracker();
+}
+
+function quickAdd(name, kcal) {
+  const log = getCalLog();
+  log.items.push({ name, kcal, time: new Date().toLocaleTimeString('ar-SA', {hour:'2-digit',minute:'2-digit'}) });
+  saveCalLog(log);
+  renderCalTracker();
+}
+
+function removeCalItem(index) {
+  const log = getCalLog();
+  log.items.splice(index, 1);
+  saveCalLog(log);
+  renderCalTracker();
+}
+
+function clearCalories() {
+  if (confirm('مسح كل سجل اليوم؟')) {
+    const log = getCalLog();
+    log.items = [];
+    saveCalLog(log);
+    renderCalTracker();
+  }
+}
+
+function renderCalTracker() {
+  const log = getCalLog();
+  const total = log.items.reduce((s, i) => s + i.kcal, 0);
+  const remaining = DAILY_GOAL - total;
+  const pct = Math.min(total / DAILY_GOAL * 100, 100);
+  const over = total > DAILY_GOAL;
+
+  // Ring
+  const circumference = 238.76;
+  const offset = circumference - (pct / 100) * circumference;
+  const ring = document.getElementById('cal-ring-fill');
+  if (ring) {
+    ring.style.strokeDashoffset = offset;
+    ring.style.stroke = over ? '#ff4757' : pct > 80 ? '#ffa502' : '#00d084';
+  }
+
+  // Numbers
+  const remEl = document.getElementById('cal-remaining');
+  if (remEl) {
+    remEl.textContent = over ? `+${total - DAILY_GOAL}` : remaining;
+    remEl.style.color = over ? '#ff4757' : '#00d084';
+  }
+  const conEl = document.getElementById('cal-consumed');
+  if (conEl) { conEl.textContent = total; conEl.style.color = over ? '#ff4757' : '#ffa502'; }
+
+  // Bar
+  const bar = document.getElementById('cal-bar-fill');
+  if (bar) { bar.style.width = pct + '%'; bar.style.background = over ? '#ff4757' : pct > 80 ? '#ffa502' : '#00d084'; }
+
+  // Status text
+  const statusEl = document.getElementById('cal-status-text');
+  if (statusEl) {
+    if (total === 0) statusEl.textContent = 'ابدأ بتسجيل وجباتك 🍽️';
+    else if (over) statusEl.textContent = `⚠️ تجاوزت الهدف بـ ${total - DAILY_GOAL} سعرة`;
+    else if (pct > 90) statusEl.textContent = `🟡 متبقي ${remaining} سعرة فقط — احذر!`;
+    else if (pct > 50) statusEl.textContent = `✅ ممتاز! متبقي ${remaining} سعرة`;
+    else statusEl.textContent = `💪 ${total} محروقة، متبقي ${remaining} سعرة`;
+  }
+
+  // Log list
+  const logEl = document.getElementById('cal-log-list');
+  if (!logEl) return;
+  if (!log.items.length) {
+    logEl.innerHTML = '<div style="padding:20px;text-align:center;color:var(--muted);font-size:0.82rem;">لا يوجد سجلات اليوم — أضف وجبتك! 🍽️</div>';
+    return;
+  }
+  logEl.innerHTML = log.items.map((item, i) => `
+    <div style="padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
+      <div style="flex:1;">
+        <div style="font-size:0.83rem;font-weight:700;">${item.name}</div>
+        <div style="font-size:0.7rem;color:var(--muted);">${item.time}</div>
+      </div>
+      <span style="font-size:0.82rem;font-weight:800;color:var(--orange);background:var(--orange-dim);padding:3px 8px;border-radius:20px;">${item.kcal} سعرة</span>
+      <button onclick="removeCalItem(${i})" style="background:var(--red-dim);color:var(--red);border:none;border-radius:8px;width:26px;height:26px;font-size:0.8rem;cursor:pointer;font-weight:800;">✕</button>
+    </div>
+  `).join('') + `
+    <div style="padding:12px 16px;background:var(--bg2);display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-size:0.82rem;font-weight:800;">المجموع</span>
+      <span style="font-size:1rem;font-weight:900;color:${over ? '#ff4757' : '#00d084'};">${total} / ${DAILY_GOAL} سعرة</span>
+    </div>
+  `;
+}
+
+// ===== INIT =====
+updateGreeting();
+renderWeights();
+renderCalTracker();
+window.addEventListener('resize', renderWeights);
+</script>
+</body>
+</html>
